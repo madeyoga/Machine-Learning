@@ -1,4 +1,4 @@
-from sklearn import datasets
+
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
@@ -7,12 +7,10 @@ import numpy as np
 import os
 import pandas as pd
 
-os.chdir(r'g:\\Programs\\python\\Machine Learning\\Bayes')
+os.chdir(r'g:\\Programs\\python\\Machine Learning\\Datasets')
 
-iris = datasets.load_iris()
-
-data = pd.read_csv("heartdisease-train.csv", header=None)
-test_set = pd.read_csv("heartdisease-test.csv", header=None)
+data = pd.read_csv("heartdisease-train.csv")
+test_set = pd.read_csv("heartdisease-test.csv")
 # X = np.array(data.loc[:, data.columns[:-1]])
 # Y = np.array(data.loc[:, data.columns[-1:]])
 X = data.loc[:, data.columns[:-1]]

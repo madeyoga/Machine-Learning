@@ -5,7 +5,7 @@ from sklearn.metrics import r2_score, accuracy_score
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cross_validation import cross_val_score
 
-os.chdir(r'g:\\Programs\\python\\Machine Learning\\Linear Regression')
+os.chdir(r'g:\\Programs\\python\\Machine Learning\\Datasets')
 
 # LOAD DATASET
 train_data_filename = "heartdisease-train.csv"
