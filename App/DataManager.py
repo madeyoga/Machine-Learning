@@ -29,6 +29,8 @@ class Manager:
 
         self.KNN_model.train(X=self.X_train, Y=self.Y_train)
         self.GNB_model.train(X=self.X_train, Y=self.Y_train)
+
+        self.compareDataFrame = None
     
     def scale_data(self):
         self.X_train = MinMaxScaler().fit_transform(self.X_train)
@@ -36,26 +38,17 @@ class Manager:
 
         self.X_train = pd.DataFrame(
             data=self.X_train[0:,0:]
-            # index=self.X_train[1:,0],
-            # columns=self.X_train[0,1:]
         )
 
         self.X_test = pd.DataFrame(
             data=self.X_test[0:,0:]
-            # index=self.X_test[1:,0],
-            # columns=self.X_test[0,1:]
         )
 
         self.update_models()
-
-        print("XTRAIN: \n")
-        print(self.X_train)
-        print("X TEST: \n")
-        print(self.X_test)
-
+    
     def update_models(self):
         self.KNN_model.train(X=self.X_train, Y=self.Y_train)
-        self.GNB_model.train(X=self.X_train, Y=self.Y_train)
+        self.GNB_model.train(X=self.X_train, Y=self.Y_train) 
 
     def set_training_dataset(self, training_dataset):
         self.training_dataset   = training_dataset
@@ -66,6 +59,19 @@ class Manager:
         self.test_dataset       = test_dataset
         self.X_test             = test_dataset.loc[:, test_dataset.columns[:-1]]
         self.Y_test             = test_dataset.loc[:, test_dataset.columns[-1:]]
+
+    def get_compare_frame(self):
+        knn_pred    = self.get_KNN_prediction()
+        gnb_pred    = self.get_GNB_prediction()
+        knn_frame   = pd.DataFrame(
+            data={'KNN Predictions' : knn_pred}
+        )
+        gnb_frame   = pd.DataFrame(
+            data={'GNB Predictions' : gnb_pred}
+        )
+        self.compareDataFrame = self.Y_test.join(knn_frame)
+        self.compareDataFrame = self.compareDataFrame.join(gnb_frame)
+        return self.compareDataFrame
 
     def set_KNN_K(self, k=5):
         self.KNN_model.set_k(k)
