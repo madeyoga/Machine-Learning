@@ -3,9 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-os.chdir(r'g:\\Programs\\python\\Machine Learning\\Linear Regression')
+os.chdir(r'g:\\Programs\\python\\Machine Learning\\Datasets')
 
-datas = pd.read_csv('example.csv')
+datas = pd.read_csv('advertising_revenue_example.csv')
 print(datas.shape)
 datas.head()
 

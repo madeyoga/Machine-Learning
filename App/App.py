@@ -1,6 +1,5 @@
-
+import time
 from Models.Classification.ClassifierModel import *
-
 from DataManager import Manager
 
 import numpy as np
@@ -14,31 +13,67 @@ datasets_path       = this_script_path + "\\Datasets"
 
 os.chdir(datasets_path)
 
-training_data_name  = "heartdisease-train.csv" # "iris-train.csv" # input("input training dataset file name: ")
-test_data_name      = "heartdisease-test.csv"  # "iris-test.csv"  # input("input test dataset file name : ")
+training_data_filename  = "iris-train.csv"
+test_data_filename      = "iris-test.csv"
 
-training_dataset    = pd.read_csv(training_data_name)
-test_dataset        = pd.read_csv(test_data_name)
+# training_data_filename  = "heartdisease-train.csv"
+# test_data_filename      = "heartdisease-test.csv"  
 
+# training_data_filename  = input("input training dataset file name: ")
+# test_data_filename      = input("input test dataset file name : ")
+
+training_dataset    = pd.read_csv(training_data_filename)
+test_dataset        = pd.read_csv(test_data_filename)
+
+print("Load Dataset... ({}/{})".format(training_data_filename, test_data_filename))
+time.sleep(1)
 manager = Manager(training_dataset=training_dataset, test_dataset=test_dataset)
 manager.scale_data()
 
-print(manager.get_compare_frame())
+## INITIAL KNN MODEL
+KNN_model = KNeighborsModel(n=5)
+KNN_model.train(X=manager.X_train, Y=manager.Y_train)
+KNN_model.predict_y(test_set_x=manager.X_test)
 
-# print(manager.KNN_model)
+## INITIAL GNB MODEL
+GNB_model = NBGaussModel()
+GNB_model.train(X=manager.X_train, Y=manager.Y_train)
+## PREDICT
+GNB_model.predict_y(test_set_x=manager.X_test)
 
-# knn_pred = manager.get_KNN_prediction()
-# pd_knn = pd.DataFrame(
-#     data={'knn predictions' : knn_pred}
-# )
-# pd_compare = manager.Y_test.join(pd_knn)
+print("Test Accuracy: ")
+print("KNN : {}%".format(KNN_model.get_accuracy(Y_test=manager.Y_test) * 100))
+print("GNB : {}%".format(GNB_model.get_accuracy(Y_test=manager.Y_test) * 100))
 
-# gnb_pred = manager.get_GNB_prediction()
-# pd_gnb = pd.DataFrame(
-#     data={'gnb predictions' : gnb_pred}
-# )
-# pd_compare = pd_compare.join(pd_gnb)
-# print(pd_compare)
+KNN_model.predict_y(test_set_x=manager.X_train)
+GNB_model.predict_y(test_set_x=manager.X_train)
+print("Training Accuracy with training dataset: ")
+print("KNN : {}%".format(KNN_model.get_accuracy(Y_test=manager.Y_train) * 100))
+print("GNB : {}%".format(GNB_model.get_accuracy(Y_test=manager.Y_train) * 100))
 
-# print(manager.get_KNN_accuracy())
-# print(manager.get_GNB_accuracy())
+manager.do_train_test_split()
+GNB_model.train(X=manager.X_train, Y=manager.Y_train)
+GNB_model.predict_y(test_set_x=manager.X_train)
+
+knn_scores = []
+k_n_range = range(1, 26)
+for k in k_n_range:
+   KNN_model.set_k(n=k)
+   KNN_model.train(X=manager.X_train, Y=manager.Y_train)
+   KNN_model.predict_y(test_set_x=manager.X_test)
+   knn_scores.append(KNN_model.get_accuracy(Y_test=manager.Y_test))
+
+print("Training Accuracy with train_test_split approach: ")
+print("KNN : {}%".format(max(knn_scores) * 100))
+print("GNB : {}%".format(GNB_model.get_accuracy(Y_test=manager.Y_train) * 100))
+
+from matplotlib import pyplot as plt
+
+plt.plot(k_n_range, knn_scores)
+plt.xlabel("K")
+plt.ylabel("Score")
+plt.show()
+
+
+
+

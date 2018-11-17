@@ -12,7 +12,7 @@ class ClassifierModel:
         self.current_accuracy = -1
 
     def train(self, dataset=None, X=None, Y=None):
-        if dataset and not dataset.empty:
+        if not dataset is None and not dataset.empty:
             X = dataset.loc[:, dataset.columns[:-1]]
             Y = dataset.loc[:, dataset.columns[-1:]]
         try:

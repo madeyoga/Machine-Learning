@@ -44,9 +44,11 @@ logistic_predicted_y = logistic_regression_model.predict(X_test)
 linear_score   = r2_score(Y_test, linear_predicted_y)
 logistic_score = r2_score(Y_test, logistic_predicted_y)
 
+print(linear_regression_model.coef_)
+
 print("Linear Regression Accuracy: {}%".format(linear_score * 100))
 print("Logistic Regression Accuracy: {}%".format(logistic_score * 100))
 
-scores = cross_val_score(LogisticRegression(), X_train, Y_train, cv=10, scoring="neg_mean_squared_error")
+scores = cross_val_score(LinearRegression(), X_train, Y_train, cv=10, scoring="neg_mean_squared_error")
 print(scores)
 print("Cross validation score: {}".format(scores.mean()))
