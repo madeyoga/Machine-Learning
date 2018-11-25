@@ -1,10 +1,8 @@
 """
+* Model : KNeighbors, Gaussian Naive Bayes, 
 * Neural Network model sangat sensitive pada data yg valuenya tidak di scale.
 * Cross Validation score, menggunakan rata-rata
-*
-*
-*
-*
+* Cross Validation, menggunakan Startified KFold, variasi dari KFold
 """
 from Models.Classification.ClassifierModel import KNeighborsModel
 from Models.Classification.ClassifierModel import NBGaussModel
