@@ -1,0 +1,42 @@
+NAMA ANGGOTA:
+1. Made Yoga Mahardika 	/ 26416083
+2. Jong, Jeffrey W 	/ 26416085
+3. Nicolas Wiyendi 	/ 26416088
+4. Ricky Setiawan S 	/ 26416095
+
+file .py:
+1. main.py  -> load heartdisease dataset
+2. main2.py -> load iris dataset
+
+Deskripsi Program: 
+- menampilkan output perbandingan accuracy antar model (KNN, GNB, DT, MLP)
+- menampilkan graphic accuracy score dari training (with training data) & test & train test split & cross validation.
+- Eksperimen, menampilkan output setiap n K, pada saat train test split. (training)
+- detail ada dilaporan.
+
+!NOTE!:
+file .exe sudah coba digenerate tapi gagal,
+menghasilkan error karena problem pada library sklearn,
+no module named 'sklearn.tree.quad_tree' 
+
+tetapi, program berjalan lancar melalui console. 
+dengan Requirements: 
+1. python 3, sudah di coba di python 3.6
+	- install python 3
+	- pastikan python.exe ada di environment variables, PATH.
+
+2. dependencies: numpy, pandas, sklearn
+   jika belum ada, jalankan perintah berikut di command prompt, 
+   *pastikan juga pip sudah terinstall, seharusnya sudah sekalian terinstall saat install python
+	- pip install numpy
+	- pip install pandas
+	- pip install sklearn
+	
+3. pastikan terdapat folder **Datasets** yang berisi
+   **heartdisease-train.csv** & **heartdisease-test.csv** & **iris-train.csv** & **iris-test.csv**
+   di directory file main.py & main2.py 
+
+4. run .py file.
+	1. buka python file di IDLE/IDE dan di run seperti biasa. atau
+	2. klik 2x .py file nya. atau
+	3. buka command prompt, change directory ke lokasi file .py, **python main.py**  
