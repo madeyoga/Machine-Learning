@@ -76,7 +76,7 @@ class MultiLayerPerceptronModel(ClassifierModel):
             solver='lbfgs',
             alpha=1e-5, # 5 nol dibelakang koma, 0.00005 # learning rate
             activation='relu', # perceptron activation relu
-            hidden_layer_sizes=(5, 2), 
+            hidden_layer_sizes=(5, 2), # tuple (n perceptron unit, n hidden layer)
             random_state=1,
         )
 
@@ -192,7 +192,7 @@ GNB_model.predict_y(test_set_x=manager.X_train)
 KNN_model.predict_y(test_set_x=manager.X_train)
 DT_model. predict_y(test_set_x=manager.X_train)
 MLP_model.predict_y(test_set_x=manager.X_train)
-print("Training Accuracy with train_test_split approach: ")
+print("Training Accuracy: ")
 print("KNN : {}%".format(KNN_model.get_accuracy(Y_test=manager.Y_train) * 100))
 print("GNB : {}%".format(GNB_model.get_accuracy(Y_test=manager.Y_train) * 100))
 print("DT  : {}%".format(DT_model .get_accuracy(Y_test=manager.Y_train) * 100))
@@ -209,6 +209,7 @@ KNN_model.predict_y(test_set_x=manager.X_test)
 DT_model. predict_y(test_set_x=manager.X_test)
 MLP_model.predict_y(test_set_x=manager.X_test)
 
+print("Test Accuracy: ")
 print("CONFUSION MATRIX :")
 print(GNB_model.get_confusion_mat(Y_test=manager.Y_test))
 print(KNN_model.get_confusion_mat(Y_test=manager.Y_test))
@@ -221,7 +222,6 @@ print(KNN_model.get_f1_score(Y_test=manager.Y_test) * 100)
 print(DT_model .get_f1_score(Y_test=manager.Y_test) * 100)
 print(MLP_model.get_f1_score(Y_test=manager.Y_test) * 100)
 
-print("Test Accuracy: ")
 print("KNN : {}%".format(KNN_model.get_accuracy(Y_test=manager.Y_test) * 100))
 print("GNB : {}%".format(GNB_model.get_accuracy(Y_test=manager.Y_test) * 100))
 print("DT  : {}%".format(DT_model .get_accuracy(Y_test=manager.Y_test) * 100))
